@@ -6,7 +6,7 @@
     ],
     "@typescript-eslint/consistent-type-assertions": {
       "assertion-style": "as",
-      "objectLiteralTypeAssertions": "allow",
+      "objectLiteralTypeAssertions": "allow"
     }
   }
 }

@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom'
-import { Dashboard } from './dashboard'
+import { App } from './app'
 
 const appContainer = document.getElementById('telematics-dashboard')
 
-ReactDOM.render(Dashboard(), appContainer)
+ReactDOM.render(App(), appContainer)

@@ -1,18 +1,18 @@
 import 'regenerator-runtime/runtime'
 import React from 'react'
 import { cleanup, render } from '@testing-library/react'
-import { App } from './app'
+import { Dashboard } from './dashboard'
 
 afterEach(cleanup)
 
-describe('App', () => {
+describe('Dashboard', () => {
   it('exports a component', () => {
-    expect(App).not.toBeUndefined()
-    expect(App).toBeInstanceOf(Function)
+    expect(Dashboard).not.toBeUndefined()
+    expect(Dashboard).toBeInstanceOf(Function)
   })
 
-  it('has a dashboard container', async () => {
-    const container = render(<App />)
+  it('has a container', async () => {
+    const container = render(<Dashboard />)
     const heading = await container.findByText('Dashboard')
     expect(heading).toBeTruthy()
   })
