@@ -1,0 +1,12 @@
+{
+  "rules": {
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "@typescript-eslint/consistent-type-assertions": {
+      "assertion-style": "as",
+      "objectLiteralTypeAssertions": "allow",
+    }
+  }
+}
