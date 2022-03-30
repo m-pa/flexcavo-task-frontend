@@ -1,16 +1,37 @@
 import 'regenerator-runtime/runtime'
 import { StateProvider } from './stateProvider'
+import { cleanup, render, fireEvent } from '@testing-library/react'
+import React, { useContext } from 'react'
+import { stateContext } from './stateProvider'
 
-const expected = { cumulativeIdleHours: { hour: 1060 }, cumulativeOperatingHours: { hour: 3469.4 }, distance: { odometer: 2702.4, odometerUnits: 'kilometre' }, engineStatus: { running: false }, equipmentHeader: { OEMName: 'CAT', model: 'M315F', serialNumber: 'ABC123456', snapshotTime: '2021-06-26T10:00:00Z' }, fuelRemaining: { percent: 39 }, fuelUsed: { fuelConsumed: 24096, fuelUnits: 'litre' }, location: { altitude: 70, altitudeUnits: 'metre', latitude: 52.52, longitude: 13.405 } }
+afterEach(cleanup)
+
+const TestConsumer = () => {
+  const ctx = useContext(stateContext)
+  return ctx && (
+    <div>{`${ctx.cumulativeIdleHours.data.hour}`}</div>
+  )
+}
+const TestSetter = () => {
+  const ctx = useContext(stateContext)
+  const set = () => ctx?.cumulativeIdleHours.set({hour: 1700})
+  return (<button onClick={set}>Set</button>)
+}
 
 describe('stateProvider', () => {
   it('exports a stateProvider', () => {
-    const provider = StateProvider({ children: [] })
-    expect(provider?.type.$$typeof.toString()).toEqual('Symbol(react.provider)')
+    const component = render(<StateProvider><div>render</div></StateProvider>)
+    expect(component.getByText('render')).toBeTruthy()
   })
 
   it('has equipmentHeader as value', () => {
-    const provider = StateProvider({ children: [] })
-    expect(provider?.props.value).toStrictEqual(expected)
+    const component = render(<StateProvider><TestConsumer /></StateProvider>)
+    expect(component.getByText('1060')).toBeTruthy()
+  })
+
+  it('updates state when update function is called', async () => {
+    const component = render(<StateProvider><TestConsumer /><TestSetter /></StateProvider>)
+    fireEvent.click(await component.getByText('Set'))
+    expect(component.getByText('1700')).toBeTruthy()
   })
 })

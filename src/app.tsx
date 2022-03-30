@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, createTheme, CssBaseline } from '@material-ui/core'
 import { Dashboard } from './components/dashboard'
 import { ThemeProvider } from '@material-ui/styles'
+import { StateProvider } from './lib/stateProvider'
 const MUItheme = createTheme({
   palette: {
     background: {
@@ -13,11 +14,12 @@ const MUItheme = createTheme({
 export const App = (): JSX.Element => {
   return (
     <ThemeProvider theme={MUItheme}>
-      <CssBaseline />
-      <Container>
-        <Dashboard />
-      </Container>
+      <StateProvider>
+        <CssBaseline />
+        <Container>
+          <Dashboard />
+        </Container>
+      </StateProvider>
     </ThemeProvider>
-
   )
 }
