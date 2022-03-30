@@ -1,6 +1,6 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useState } from 'react'
 
-interface EquipmentHeader {
+export interface EquipmentHeader {
   OEMName: string
   model: string
   serialNumber: string
@@ -64,7 +64,7 @@ interface StateAPI {
 
 type StateContext = StateAPI | null
 
-let state: EquipmentState = {
+const state: EquipmentState = {
   equipmentHeader: {
     OEMName: 'CAT',
     model: 'M315F',
@@ -102,24 +102,24 @@ let state: EquipmentState = {
 export const stateContext = createContext<StateContext>(null)
 
 export const StateProvider: React.FC<React.ReactNode> = (props: any) => {
-  const [equipmentHeader, setEquipmentHeader] = useState(state.equipmentHeader) 
-  const [location, setLocation] = useState(state.location) 
-  const [cumulativeIdleHours, setCumulativeIdleHours] = useState(state.cumulativeIdleHours) 
-  const [cumulativeOperatingHours, setCumulativeIdleOperatingHours] = useState(state.cumulativeIdleHours) 
-  const [distance, setDistance] = useState(state.distance) 
-  const [engineStatus, setEngineStatus] = useState(state.engineStatus) 
-  const [fuelUsed, setFuelUsed] = useState(state.fuelUsed) 
-  const [fuelRemaining, setFuelRemaining] = useState(state.fuelRemaining) 
+  const [equipmentHeader, setEquipmentHeader] = useState(state.equipmentHeader)
+  const [location, setLocation] = useState(state.location)
+  const [cumulativeIdleHours, setCumulativeIdleHours] = useState(state.cumulativeIdleHours)
+  const [cumulativeOperatingHours, setCumulativeIdleOperatingHours] = useState(state.cumulativeIdleHours)
+  const [distance, setDistance] = useState(state.distance)
+  const [engineStatus, setEngineStatus] = useState(state.engineStatus)
+  const [fuelUsed, setFuelUsed] = useState(state.fuelUsed)
+  const [fuelRemaining, setFuelRemaining] = useState(state.fuelRemaining)
 
   const data: StateAPI = {
-    equipmentHeader: { data: equipmentHeader, set: setEquipmentHeader},
-    location: { data: location, set: setLocation},
-    cumulativeIdleHours: { data: cumulativeIdleHours, set: setCumulativeIdleHours},
-    cumulativeOperatingHours: { data: cumulativeOperatingHours, set: setCumulativeIdleOperatingHours},
-    distance: { data: distance, set: setDistance},
-    engineStatus: { data: engineStatus, set: setEngineStatus},
-    fuelUsed: { data: fuelUsed, set: setFuelUsed},
-    fuelRemaining: { data: fuelRemaining, set: setFuelRemaining},
+    equipmentHeader: { data: equipmentHeader, set: setEquipmentHeader },
+    location: { data: location, set: setLocation },
+    cumulativeIdleHours: { data: cumulativeIdleHours, set: setCumulativeIdleHours },
+    cumulativeOperatingHours: { data: cumulativeOperatingHours, set: setCumulativeIdleOperatingHours },
+    distance: { data: distance, set: setDistance },
+    engineStatus: { data: engineStatus, set: setEngineStatus },
+    fuelUsed: { data: fuelUsed, set: setFuelUsed },
+    fuelRemaining: { data: fuelRemaining, set: setFuelRemaining }
   }
 
   return (
