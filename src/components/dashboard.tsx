@@ -1,13 +1,14 @@
-import React, { useContext } from 'react'
-import { Container, Grid, makeStyles } from '@material-ui/core'
+import React, { createRef, useContext } from 'react'
+import { Container, Grid, makeStyles, Divider } from '@material-ui/core'
 import { ListItem, Icon, theme } from '@flexcavo/ui-kit'
 import { stateContext } from '../lib/stateProvider'
 import { DashboardHeader } from './dashboard-header'
 import { DashboardEquipmentDetails } from './dashboard-equipment-details'
+import { FuelBar } from './dashboard-fuel-bar'
 
 const useStyles = makeStyles({
   dashboard: {
-    marginTop: '300px',
+    margin: '300px 0',
     padding: '100px',
     background: '#fff',
     borderRadius: theme.shape.borderRadius,
@@ -15,16 +16,18 @@ const useStyles = makeStyles({
     paddingBottom: '200px'
   },
   item: {
-    background: 'fuchsia',
     minWidth: '300px'
   },
   container: {
     marginTop: '70px'
+  },
+  icon: {
+    fontSize: '2.5rem'
   }
 })
 
 export const Dashboard = (): JSX.Element => {
-  const { dashboard, item, container } = useStyles()
+  const { dashboard, item, container, icon } = useStyles()
   const state = useContext(stateContext)
 
   return state === null
@@ -37,21 +40,36 @@ export const Dashboard = (): JSX.Element => {
       <Container className={dashboard}>
         <DashboardHeader snapshotTime={state?.equipmentHeader.data.snapshotTime} />
         <DashboardEquipmentDetails equipmentHeader={state.equipmentHeader.data} />
-        <Grid container className={container} spacing={3} justifyContent='space-between'>
-          <Grid className={item} item><ListItem primaryText={state?.cumulativeIdleHours.data.hour} secondaryText='Cumulative Hours Idle' icon={<Icon name='HourGlassEmpty' />} /></Grid>
-          <Grid className={item} item><ListItem primaryText={state?.cumulativeOperatingHours.data.hour} secondaryText='Cumulative Hours Operating' icon={<Icon name='AccessTime' />} /></Grid>
+        <Divider></Divider>
+        <Grid container className={container} spacing={3} justifyContent='flex-start'>
+          <ListItem 
+            className={item} 
+            primaryText={`${state.distance.data.odometer} ${state.distance.data.odometerUnits === 'kilometre' && 'km'}`} 
+            secondaryText='Odometer' 
+            icon={<Icon className={icon} name='Directions' />} 
+          />
+          <ListItem 
+            className={item} 
+            primaryText={`${state?.cumulativeOperatingHours.data.hour} h`} 
+            secondaryText='Cumulative Hours Operating' 
+            icon={<Icon className={icon} name='AccessTime' />} 
+          />
+          <ListItem 
+            className={item} 
+            primaryText={`${state?.fuelUsed.data.fuelConsumed} ${state?.fuelUsed.data.fuelUnits === 'litre' && 'l'}`}
+            secondaryText='Fuel Used' 
+            icon={<Icon className={icon} name='GasMeter' />} 
+          />
         </Grid>
-        <Grid container className={container} spacing={3} justifyContent='space-between'>
-          <Grid className={item} item><ListItem primaryText={state?.cumulativeIdleHours.data.hour} /></Grid>
-          <Grid className={item} item><ListItem primaryText={state?.cumulativeIdleHours.data.hour} /></Grid>
-          <Grid className={item} item><ListItem primaryText={state?.cumulativeIdleHours.data.hour} /></Grid>
+        <Grid container className={container} spacing={3} justifyContent='flex-start'>
+          <ListItem 
+            className={item} 
+            primaryText={`${state?.cumulativeIdleHours.data.hour} h`}
+            secondaryText='Cumulative Idle Hours' 
+            icon={<Icon className={icon} name='HourglassEmpty' />} 
+          />
+          <FuelBar fuelStatus={state.fuelRemaining.data}/>
         </Grid>
-        <Grid container className={container} spacing={3} justifyContent='space-between'>
-          <Grid className={item} item><ListItem primaryText={state?.cumulativeIdleHours.data.hour} /></Grid>
-          <Grid className={item} item><ListItem primaryText={state?.cumulativeIdleHours.data.hour} /></Grid>
-          <Grid className={item} item><ListItem primaryText={state?.cumulativeIdleHours.data.hour} /></Grid>
-        </Grid>
-
       </Container>
       )
 }

@@ -36,7 +36,7 @@ interface FuelUsed {
   fuelConsumed: number
 }
 
-interface FuelRemaining {
+export interface FuelRemaining {
   percent: number
 }
 
