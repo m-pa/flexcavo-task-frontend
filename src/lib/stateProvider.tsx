@@ -7,18 +7,18 @@ export interface EquipmentHeader {
   snapshotTime: string
 }
 
-interface EquipmentLocation {
+export interface EquipmentLocation {
   latitude: number
   longitude: number
   altitude: number
   altitudeUnits: string
 }
 
-interface CumulativeIdleHours {
+export interface CumulativeIdleHours {
   hour: number
 }
 
-interface CumulativeOperatingHours {
+export interface CumulativeOperatingHours {
   hour: number
 }
 

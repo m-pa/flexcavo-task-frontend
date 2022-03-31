@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Icon, ListItem, theme, Snackbar } from '@flexcavo/ui-kit'
+import {  ListItem, theme, Snackbar } from '@flexcavo/ui-kit'
 import { FuelRemaining } from '../lib/stateProvider'
 import { makeStyles, LinearProgress, Box, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles({
   item: {
     minWidth: '300px'
-  },
-  icon: {
-    fontSize: '2.5rem'
   }
 })
 
@@ -39,7 +36,11 @@ const FuelStatusBar = ({fuelStatus}: {fuelStatus: FuelRemaining }) => {
     setOpen(true)
     setHasShownSnackbar(true)
   }
-  console.log(fuelStatus.percent)
+
+  if (fuelStatus.percent > 5 && hasShownSnackbar) {
+    setHasShownSnackbar(false)
+  }
+
   useEffect(() => {
     setTimeout(() => setOpen(false), 6000);
   }, [hasShownSnackbar]);
@@ -53,7 +54,7 @@ const FuelStatusBar = ({fuelStatus}: {fuelStatus: FuelRemaining }) => {
           classes={{...classes, barColorPrimary: critical ? barColorWarning : classes.barColorPrimary}}
         />
       </Box>
-      <Box minWidth={35}>
+      <Box minWidth={60}>
         <Typography color='textSecondary'>{`${Math.round(
           fuelStatus.percent
         )}%`}</Typography>
@@ -69,15 +70,12 @@ const FuelStatusBar = ({fuelStatus}: {fuelStatus: FuelRemaining }) => {
 }
 
 export const FuelBar = ({ fuelStatus }: {fuelStatus: FuelRemaining }): JSX.Element => {
-  const { item, icon } = useStyles()
+  const { item } = useStyles()
   return (
-    <>
-      <ListItem 
-        className={item} 
-        primaryText={<FuelStatusBar fuelStatus={fuelStatus}/>}
-        secondaryText='Fuel Remaining' 
-        icon={<Icon className={icon} name='LocalGasStation' />} 
-      />
-    </>
+    <ListItem 
+      className={item} 
+      primaryText={<FuelStatusBar fuelStatus={fuelStatus}/>}
+      secondaryText='Fuel Remaining' 
+    />
   )
 }

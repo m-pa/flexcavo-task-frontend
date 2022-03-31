@@ -26,7 +26,7 @@ describe('Dashboard', () => {
   it('has equipment details', async () => {
     const DashboardWithProvider = withProvider(Dashboard)
     const container = render(<DashboardWithProvider />)
-    const heading = await container.findByText('Equipment Details')
+    const heading = await container.findByText('Manufacturer')
     expect(heading).toBeTruthy()
   })
 })

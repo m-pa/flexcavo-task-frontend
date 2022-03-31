@@ -13,12 +13,6 @@ const testHeader = {
 }
 
 describe('equipment header', () => {
-  it('has a header', async () => {
-    const container = render(<DashboardEquipmentDetails equipmentHeader={testHeader} />)
-    const equipmentDetails = await container.findByText('Equipment Details')
-    expect(equipmentDetails).toBeTruthy()
-  })
-
   it('shows oem name', async () => {
     const container = render(<DashboardEquipmentDetails equipmentHeader={testHeader} />)
     const equipmentOEMName = await container.findByText('CAT')

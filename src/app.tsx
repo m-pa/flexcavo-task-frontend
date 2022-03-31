@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, createTheme, CssBaseline } from '@material-ui/core'
+import { createTheme, CssBaseline, Grid } from '@material-ui/core'
 import { Dashboard } from './components/dashboard'
 import { ThemeProvider } from '@material-ui/styles'
 import { StateProvider } from './lib/stateProvider'
@@ -13,9 +13,9 @@ export const App = (): JSX.Element => {
     <ThemeProvider theme={MUItheme}>
       <StateProvider>
         <CssBaseline />
-        <Container>
+        <Grid container justifyContent='center'>
           <Dashboard />
-        </Container>
+        </Grid>
         <DebugInputs />
       </StateProvider>
     </ThemeProvider>

@@ -14,14 +14,12 @@ export const DebugInputs = (): JSX.Element => {
   const { input } = useStyles()
 
   const updateFuel = (e: any) => {
-    console.log(parseInt(e.target.value))
     state?.fuelRemaining.set({
       percent: parseInt(e.target.value) 
     })
   }
 
   const updateOperatingHours = (e: any) => {
-    console.log(parseInt(e.target.value))
     state?.cumulativeOperatingHours.set({
       hour: parseInt(e.target.value) 
     })

@@ -2,6 +2,10 @@
 
 This is my solution to the Telematics challenge.
 
+## Node version
+
+Tested with `node v17.6.0`
+
 ## Installation
 
 `npm i`
