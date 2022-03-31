@@ -1,6 +1,6 @@
-import React from 'react'
-import { Icon, ListItem, theme } from '@flexcavo/ui-kit'
-import {  FuelRemaining } from '../lib/stateProvider'
+import React, { useState, useEffect } from 'react'
+import { Icon, ListItem, theme, Snackbar } from '@flexcavo/ui-kit'
+import { FuelRemaining } from '../lib/stateProvider'
 import { makeStyles, LinearProgress, Box, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles({
@@ -30,10 +30,23 @@ const useProgressStyles = makeStyles({
 
 const FuelStatusBar = ({fuelStatus}: {fuelStatus: FuelRemaining }) => {
   const {barColorWarning, ...classes} = useProgressStyles()
+  const [open, setOpen] = useState(false)
+  const [hasShownSnackbar, setHasShownSnackbar] = useState(false)
+  
   const critical = fuelStatus.percent <= 5
+  
+  if (critical && !hasShownSnackbar) {
+    setOpen(true)
+    setHasShownSnackbar(true)
+  }
+  console.log(fuelStatus.percent)
+  useEffect(() => {
+    setTimeout(() => setOpen(false), 6000);
+  }, [hasShownSnackbar]);
+
   return (
-    <Box display="flex" alignItems="center">
-      <Box width="100%" mr={1}>
+    <Box display='flex' alignItems='center'>
+      <Box width='100%' mr={1}>
         <LinearProgress
           value={fuelStatus.percent}
           variant='determinate'
@@ -41,10 +54,17 @@ const FuelStatusBar = ({fuelStatus}: {fuelStatus: FuelRemaining }) => {
         />
       </Box>
       <Box minWidth={35}>
-        <Typography color="textSecondary">{`${Math.round(
+        <Typography color='textSecondary'>{`${Math.round(
           fuelStatus.percent
         )}%`}</Typography>
       </Box>
+      <Snackbar
+        type='error'
+        open={open}
+        message={`
+          Warning: Equipment low on fuel.
+        `}
+      />
     </Box>)
 }
 

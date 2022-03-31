@@ -44,29 +44,29 @@ export const Dashboard = (): JSX.Element => {
         <Grid container className={container} spacing={3} justifyContent='flex-start'>
           <ListItem 
             className={item} 
-            primaryText={`${state.distance.data.odometer} ${state.distance.data.odometerUnits === 'kilometre' && 'km'}`} 
-            secondaryText='Odometer' 
-            icon={<Icon className={icon} name='Directions' />} 
-          />
-          <ListItem 
-            className={item} 
             primaryText={`${state?.cumulativeOperatingHours.data.hour} h`} 
             secondaryText='Cumulative Hours Operating' 
             icon={<Icon className={icon} name='AccessTime' />} 
           />
           <ListItem 
             className={item} 
-            primaryText={`${state?.fuelUsed.data.fuelConsumed} ${state?.fuelUsed.data.fuelUnits === 'litre' && 'l'}`}
-            secondaryText='Fuel Used' 
-            icon={<Icon className={icon} name='GasMeter' />} 
+            primaryText={`${state?.cumulativeIdleHours.data.hour} h`}
+            secondaryText='Cumulative Idle Hours' 
+            icon={<Icon className={icon} name='HourglassEmpty' />} 
+          />
+          <ListItem 
+            className={item} 
+            primaryText={`${state.distance.data.odometer} ${state.distance.data.odometerUnits === 'kilometre' && 'km'}`} 
+            secondaryText='Odometer' 
+            icon={<Icon className={icon} name='Directions' />} 
           />
         </Grid>
         <Grid container className={container} spacing={3} justifyContent='flex-start'>
           <ListItem 
             className={item} 
-            primaryText={`${state?.cumulativeIdleHours.data.hour} h`}
-            secondaryText='Cumulative Idle Hours' 
-            icon={<Icon className={icon} name='HourglassEmpty' />} 
+            primaryText={`${state?.fuelUsed.data.fuelConsumed} ${state?.fuelUsed.data.fuelUnits === 'litre' && 'l'}`}
+            secondaryText='Fuel Used' 
+            icon={<Icon className={icon} name='GasMeter' />} 
           />
           <FuelBar fuelStatus={state.fuelRemaining.data}/>
         </Grid>

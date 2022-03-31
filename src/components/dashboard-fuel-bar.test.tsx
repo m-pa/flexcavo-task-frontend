@@ -21,4 +21,10 @@ describe('equipment header', () => {
     const progress = await container.findByRole('progressbar')
     expect(progress).toBeTruthy()
   })
+
+  it('opens a snackbar warning if low', async () => {
+    const container = render(<FuelBar fuelStatus={{ percent: 4 }} />)
+    const progress = await container.findByText('Warning: Equipment low on fuel.')
+    expect(progress).toBeTruthy()
+  })
 })
