@@ -42,14 +42,20 @@ describe('idle ratio to percent', () => {
 
 describe('idle time component', () => {
   it('has a description', async () => {
-    const container = render(<IdleTime idleHours={testIdleHours} operatingHours={testOperatingHours}/>)
+    const container = render(<IdleTime idleHours={testIdleHours} operatingHours={testOperatingHours} />)
     const secondaryText = await container.findByText('Operating / Idling Ratio')
     expect(secondaryText).toBeTruthy()
   })
 
   it('has a progress bar', async () => {
-    const container = render(<IdleTime idleHours={testIdleHours} operatingHours={testOperatingHours}/>)
+    const container = render(<IdleTime idleHours={testIdleHours} operatingHours={testOperatingHours} />)
     const progress = await container.findByRole('progressbar')
+    expect(progress).toBeTruthy()
+  })
+
+  it('opens a snackbar warning if ratio is < 3', async () => {
+    const container = render(<IdleTime idleHours={{ hour: 100 }} operatingHours={{ hour: 100 }} />)
+    const progress = await container.findByText('Warning: Equipment is idling a lot.')
     expect(progress).toBeTruthy()
   })
 })

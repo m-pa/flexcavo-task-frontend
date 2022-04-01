@@ -9,7 +9,7 @@ const testFuelStatus = {
   percent: 50
 }
 
-describe('equipment header', () => {
+describe('fuel status', () => {
   it('has a description', async () => {
     const container = render(<FuelBar fuelStatus={testFuelStatus} />)
     const secondaryText = await container.findByText('Fuel Remaining')

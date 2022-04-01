@@ -39,36 +39,41 @@ export const Dashboard = (): JSX.Element => {
       <Container className={dashboard}>
         <DashboardHeader snapshotTime={state.equipmentHeader.data.snapshotTime} />
         <DashboardEquipmentDetails equipmentHeader={state.equipmentHeader.data} />
-        <Divider/>
+        <Divider />
         <Grid container className={container} spacing={3} justifyContent='flex-start'>
-          <FuelBar fuelStatus={state.fuelRemaining.data}/>
-          <ListItem 
-            className={item} 
-            primaryText={`${state.fuelUsed.data.fuelConsumed} ${state.fuelUsed.data.fuelUnits === 'litre' && 'l'}`}
-            secondaryText='Fuel Used' 
+          <FuelBar fuelStatus={state.fuelRemaining.data} />
+          <ListItem
+            className={item}
+            primaryText={`${state.fuelUsed.data.fuelConsumed} ${state.fuelUsed.data.fuelUnits === 'litre' && 'l'}`} // eslint-disable-line
+            secondaryText='Fuel Used'
           />
-          <ListItem 
-            className={item} 
-            primaryText={`${state.cumulativeOperatingHours.data.hour} h`} 
-            secondaryText='Cumulative Hours Operating' 
+          <ListItem
+            className={item}
+            primaryText={`${state.cumulativeOperatingHours.data.hour} h`}
+            secondaryText='Cumulative Hours Operating'
           />
-          <ListItem 
-            className={item} 
+          <ListItem
+            className={item}
             primaryText={`${state.cumulativeIdleHours.data.hour} h`}
-            secondaryText='Cumulative Idle Hours' 
+            secondaryText='Cumulative Hours Idling'
           />
           <IdleTime
             idleHours={state.cumulativeIdleHours.data}
             operatingHours={state.cumulativeOperatingHours.data}
           />
+          <ListItem
+            className={item}
+            primaryText={`${state.engineStatus.data.running ? 'running' : 'not running'}`}
+            secondaryText='Engine Status'
+          />
         </Grid>
         <Grid container className={container} spacing={3} justifyContent='flex-start'>
-          <ListItem 
-            className={item} 
-            primaryText={`${state.distance.data.odometer} ${state.distance.data.odometerUnits === 'kilometre' && 'km'}`} 
-            secondaryText='Odometer' 
+          <ListItem
+            className={item}
+            primaryText={`${state.distance.data.odometer} ${state.distance.data.odometerUnits === 'kilometre' && 'km'}`} // eslint-disable-line
+            secondaryText='Odometer'
           />
-          <Location location={state.location.data}/>
+          <Location location={state.location.data} />
         </Grid>
       </Container>
       )

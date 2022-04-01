@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import {  ListItem, theme, Snackbar } from '@flexcavo/ui-kit'
+import { Icon, ListItem, theme, Snackbar } from '@flexcavo/ui-kit'
 import { FuelRemaining } from '../lib/stateProvider'
 import { makeStyles, LinearProgress, Box, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles({
   item: {
     minWidth: '300px'
+  },
+  icon: {
+    fontSize: '2.3rem',
+    color: theme.palette.error.main
   }
 })
 
 const useProgressStyles = makeStyles({
   root: {
     height: '10px',
-    borderRadius: '1px',
+    borderRadius: '1px'
   },
   colorPrimary: {
     backgroundColor: theme.palette.grey[200]
@@ -25,13 +29,13 @@ const useProgressStyles = makeStyles({
   }
 })
 
-const FuelStatusBar = ({fuelStatus}: {fuelStatus: FuelRemaining }) => {
-  const {barColorWarning, ...classes} = useProgressStyles()
+const FuelStatusBar = ({ fuelStatus }: {fuelStatus: FuelRemaining }): JSX.Element => {
+  const { barColorWarning, ...classes } = useProgressStyles()
   const [open, setOpen] = useState(false)
   const [hasShownSnackbar, setHasShownSnackbar] = useState(false)
-  
+
   const critical = fuelStatus.percent <= 5
-  
+
   if (critical && !hasShownSnackbar) {
     setOpen(true)
     setHasShownSnackbar(true)
@@ -42,8 +46,10 @@ const FuelStatusBar = ({fuelStatus}: {fuelStatus: FuelRemaining }) => {
   }
 
   useEffect(() => {
-    setTimeout(() => setOpen(false), 6000);
-  }, [hasShownSnackbar]);
+    setTimeout(() => setOpen(false), 6000)
+  }, [hasShownSnackbar])
+
+  const barColorPrimary = critical ? barColorWarning : classes.barColorPrimary
 
   return (
     <Box display='flex' alignItems='center'>
@@ -51,13 +57,14 @@ const FuelStatusBar = ({fuelStatus}: {fuelStatus: FuelRemaining }) => {
         <LinearProgress
           value={fuelStatus.percent}
           variant='determinate'
-          classes={{...classes, barColorPrimary: critical ? barColorWarning : classes.barColorPrimary}}
+          classes={{ ...classes, barColorPrimary }}
         />
       </Box>
       <Box minWidth={60}>
         <Typography color='textSecondary'>{`${Math.round(
           fuelStatus.percent
-        )}%`}</Typography>
+        )}%`}
+        </Typography>
       </Box>
       <Snackbar
         type='error'
@@ -66,16 +73,21 @@ const FuelStatusBar = ({fuelStatus}: {fuelStatus: FuelRemaining }) => {
           Warning: Equipment low on fuel.
         `}
       />
-    </Box>)
+    </Box>
+  )
 }
 
 export const FuelBar = ({ fuelStatus }: {fuelStatus: FuelRemaining }): JSX.Element => {
-  const { item } = useStyles()
+  const { item, icon } = useStyles()
+
+  const critical = fuelStatus.percent <= 5
+
   return (
-    <ListItem 
-      className={item} 
-      primaryText={<FuelStatusBar fuelStatus={fuelStatus}/>}
-      secondaryText='Fuel Remaining' 
+    <ListItem
+      className={item}
+      primaryText={<FuelStatusBar fuelStatus={fuelStatus} />}
+      secondaryText='Fuel Remaining'
+      icon={critical ? <Icon className={icon} name='ErrorOutline' /> : undefined}
     />
   )
 }

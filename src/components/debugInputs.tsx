@@ -13,36 +13,52 @@ export const DebugInputs = (): JSX.Element => {
   const state = useContext(stateContext)
   const { input } = useStyles()
 
-  const updateFuel = (e: any) => {
+  const updateFuel: any = (e: any) => {
     state?.fuelRemaining.set({
-      percent: parseInt(e.target.value) 
+      percent: parseInt(e.target.value)
     })
   }
 
-  const updateOperatingHours = (e: any) => {
+  const updateOperatingHours: any = (e: any) => {
     state?.cumulativeOperatingHours.set({
-      hour: parseInt(e.target.value) 
+      hour: parseInt(e.target.value)
     })
   }
 
-  return (
+  const updateIdleHours: any = (e: any) => {
+    state?.cumulativeIdleHours.set({
+      hour: parseInt(e.target.value)
+    })
+  }
+
+  return (state != null)
+    ? (
       <Container>
-        <Input 
-          className={input} 
-          name='fuel status' 
-          value={state?.fuelRemaining.data.percent || 100} 
-          onChange={updateFuel} 
-          type='number' 
-          label='fuel' 
+        <Input
+          className={input}
+          name='fuel status'
+          value={state?.fuelRemaining.data.percent}
+          onChange={updateFuel}
+          type='number'
+          label='fuel'
         />
-        <Input 
-          className={input} 
-          name='cumulative operating hours' 
-          value={state?.cumulativeOperatingHours.data.hour || 100} 
-          onChange={updateOperatingHours} 
-          type='number' 
-          label='operating hours' 
+        <Input
+          className={input}
+          name='cumulative operating hours'
+          value={state?.cumulativeOperatingHours.data.hour}
+          onChange={updateOperatingHours}
+          type='number'
+          label='operating hours'
+        />
+        <Input
+          className={input}
+          name='cumulative idle hours'
+          value={state?.cumulativeIdleHours.data.hour}
+          onChange={updateIdleHours}
+          type='number'
+          label='idle hours'
         />
       </Container>
       )
+    : (<></>)
 }

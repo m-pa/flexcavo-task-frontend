@@ -22,24 +22,24 @@ const useStyles = makeStyles({
   }
 })
 
-const showOnMap = () => console.log('not implemented')
+const showOnMap: any = () => console.log('not implemented')
 
 export const Location = ({ location }: {location: EquipmentLocation }): JSX.Element => {
   const { item, iconSmall, link } = useStyles()
-  const nearest = nearestCity(location);
+  const nearest = nearestCity(location)
   return (
-    <ListItem 
-      className={item} 
+    <ListItem
+      className={item}
       primaryText={
         <>
-          {`${nearest.name}, ${nearest.countryCode} `}
-          <Link className={link} href="#" onClick={showOnMap}>
+          {`${nearest.name as string}, ${nearest.countryCode as string} `}
+          <Link className={link} href='#' onClick={showOnMap}>
             Show on Map
-            <Icon className={iconSmall} name='ChevronRight'/>
+            <Icon className={iconSmall} name='ChevronRight' />
           </Link>
         </>
       }
-      secondaryText={'Equipment Location'} 
+      secondaryText='Equipment Location'
     />
   )
 }
