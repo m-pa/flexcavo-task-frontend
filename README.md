@@ -13,6 +13,7 @@ Tested with `node v17.6.0`
 ## Start dev server
 
 `npm run dev`
+navigate to `localhost:9000`
 
 ## Run test suite
 
